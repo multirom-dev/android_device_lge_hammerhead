@@ -116,9 +116,21 @@ RECOVERY_SDCARD_ON_DATA := true
 TW_NO_USB_STORAGE := true
 TW_INCLUDE_JB_CRYPTO := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 # The real path for this is /sys/devices/mdp.0/qcom,cmdss_fb_primary.160/leds/lcd-backlight/brightness but the comma doesn't compile correctly
 TW_BRIGHTNESS_PATH := "/sys/devices/mdp.0/qcom\x2cmdss_fb_primary.160/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255
 TW_NO_SCREEN_TIMEOUT := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
+
+#MultiROM config. MultiROM also uses parts of TWRP config
+MR_INPUT_TYPE := type_b
+MR_INIT_DEVICES := device/lge/hammerhead/mr_init_devices.c
+MR_DPI := xhdpi
+MR_FSTAB := device/lge/hammerhead/twrp.fstab
+MR_KEXEC_MEM_MIN := 0x20000000
+MR_KEXEC_DTB := true
+#MR_INFOS := device/lge/hammerhead/mrom_infos
+MR_DEVICE_HOOKS := device/lge/hammerhead/mr_hooks.c
+MR_DEVICE_HOOKS_VER := 2
