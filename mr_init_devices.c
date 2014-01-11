@@ -34,8 +34,5 @@ const char *mr_init_devices[] =
     // USB drive is in here
     "/sys/devices/platform/xhci-hcd*",
 
-    // exfat requires fuse device
-    "/sys/devices/virtual/misc/fuse",
-
     NULL
 };
