@@ -39,6 +39,6 @@ initrd_path="initrd.img"
 #  - %s - root directory, from root of the root device
 #  - %i - root image, from root of the root device
 #  - %f - fs of the root image
-base_cmdline="%b console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 maxcpus=2 msm_watchdog_v2.enable=1 root=%d rootfstype=%r rw rootflags=defaults,noatime,nodiratime"
+base_cmdline="%b console=tty0 androidboot.hardware=hammerhead user_debug=31 maxcpus=2 msm_watchdog_v2.enable=1 root=%d rootfstype=%r rw rootflags=defaults,noatime,nodiratime"
 img_cmdline="loop=%s loopfstype=%f"
 dir_cmdline="rootsubdir=%s"
