@@ -136,3 +136,5 @@ MR_KEXEC_DTB := true
 MR_INFOS := device/lge/hammerhead/mrom_infos
 MR_DEVICE_HOOKS := device/lge/hammerhead/mr_hooks.c
 MR_DEVICE_HOOKS_VER := 3
+MR_DEVICE_RECOVERY_HOOKS := device/lge/hammerhead/mr_hooks_recovery.c
+MR_DEVICE_RECOVERY_HOOKS_VER := 1
