@@ -64,9 +64,7 @@ static int wait_for_file(const char *filename, int timeout)
         return ret;
 }
 
-// Some hammerhead kernels are too fast and mmcblk initialization
-// occurs a bit too late, wait for it.
-void tramp_hook_before_device_init(void)
+static void wait_for_mmc(void)
 {
     // boot
     const char *filename = "/sys/devices/msm_sdcc.1/mmc_host/mmc1/mmc1:0001/block/mmcblk0/mmcblk0p19/uevent";
@@ -83,5 +81,67 @@ void tramp_hook_before_device_init(void)
     {
         ERROR("Timeout while waiting for %s!\n", filename);
     }
+}
+
+static int read_file(const char *path, char *dest, int dest_size)
+{
+    int res = 0;
+    FILE *f = fopen(path, "r");
+    if(!f)
+        return res;
+
+    res = fgets(dest, dest_size, f) != NULL;
+    fclose(f);
+    return res;
+}
+
+static int write_file(const char *path, const char *what)
+{
+    int res = 0;
+    FILE *f = fopen(path, "w");
+    if(!f)
+        return res;
+
+    res = fputs(what, f) >= 0;
+    fclose(f);
+    return res;
+}
+
+static void set_cpu_governor(void)
+{
+    size_t i;
+    char buff[256];
+    static const char *governors[] = { "ondemand", "interactive" };
+
+    if(!read_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", buff, sizeof(buff)))
+        return;
+
+    if(strncmp(buff, "performance", 11) != 0)
+        return;
+
+    if(!read_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors", buff, sizeof(buff)))
+        return;
+
+    for(i = 0; i < sizeof(governors)/sizeof(governors[0]); ++i)
+    {
+        if(strstr(buff, governors[i]))
+        {
+            write_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", governors[i]);
+            write_file("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor", governors[i]);
+            write_file("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor", governors[i]);
+            write_file("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor", governors[i]);
+            break;
+        }
+    }
+}
+
+void tramp_hook_before_device_init(void)
+{
+    // Some hammerhead kernels are too fast and mmcblk initialization
+    // occurs a bit too late, wait for it.
+    wait_for_mmc();
+
+    // hammerhead's kernel has "performance" as default
+    set_cpu_governor();
 }
 #endif /* MR_DEVICE_HOOKS >= 3 */
