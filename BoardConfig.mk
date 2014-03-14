@@ -138,3 +138,4 @@ MR_DEVICE_HOOKS := device/lge/hammerhead/mr_hooks.c
 MR_DEVICE_HOOKS_VER := 3
 MR_DEVICE_RECOVERY_HOOKS := device/lge/hammerhead/mr_hooks_recovery.c
 MR_DEVICE_RECOVERY_HOOKS_VER := 1
+MR_CONTINUOUS_FB_UPDATE := true
