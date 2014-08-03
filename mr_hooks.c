@@ -122,6 +122,11 @@ static void set_cpu_governor(void)
     if(!read_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors", buff, sizeof(buff)))
         return;
 
+    write_file("/sys/module/msm_thermal/core_control/enabled", "0");
+    write_file("/sys/devices/system/cpu/cpu1/online", "1");
+    write_file("/sys/devices/system/cpu/cpu2/online", "1");
+    write_file("/sys/devices/system/cpu/cpu3/online", "1");
+
     for(i = 0; i < sizeof(governors)/sizeof(governors[0]); ++i)
     {
         if(strstr(buff, governors[i]))
@@ -133,6 +138,45 @@ static void set_cpu_governor(void)
             break;
         }
     }
+
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold","90");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate","50000");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/io_is_busy","1");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor","4");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/down_differential","10");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_multi_core","70");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/down_differential_multi_core","3");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/optimal_freq","960000");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/sync_freq","960000");
+    write_file("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load","80");
+    write_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq","300000");
+    write_file("/sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq","300000");
+    write_file("/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq","300000");
+    write_file("/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq","300000");
+
+    write_file("/sys/module/msm_thermal/core_control/enabled", "1");
+
+    write_file("/sys/module/lpm_resources/enable_low_power/l2", "2");
+    write_file("/sys/module/lpm_resources/enable_low_power/pxo", "1");
+    write_file("/sys/module/lpm_resources/enable_low_power/vdd_dig", "1");
+    write_file("/sys/module/lpm_resources/enable_low_power/vdd_mem", "1");
+    write_file("/sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled", "1");
+    write_file("/sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled", "1");
+    write_file("/sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled", "1");
+    write_file("/sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled", "1");
+    write_file("/sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled", "1");
+    write_file("/sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/suspend_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/suspend_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/suspend_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/suspend_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu0/retention/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu1/retention/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu2/retention/idle_enabled","1");
+    write_file("/sys/module/pm_8x60/modes/cpu3/retention/idle_enabled","1");
 }
 
 void tramp_hook_before_device_init(void)
