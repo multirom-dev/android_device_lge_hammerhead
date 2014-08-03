@@ -130,6 +130,7 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 MR_INPUT_TYPE := type_b
 MR_INIT_DEVICES := device/lge/hammerhead/mr_init_devices.c
 MR_DPI := xhdpi
+MR_DPI_FONT := 340
 MR_FSTAB := device/lge/hammerhead/twrp.fstab
 MR_KEXEC_MEM_MIN := 0x20000000
 MR_KEXEC_DTB := true
