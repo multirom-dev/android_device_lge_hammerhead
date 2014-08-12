@@ -111,7 +111,7 @@ static void set_cpu_governor(void)
 {
     size_t i;
     char buff[256];
-    static const char *governors[] = { "ondemand", "interactive" };
+    static const char *governors[] = { "interactive", "ondemand" };
 
     if(!read_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", buff, sizeof(buff)))
         return;
