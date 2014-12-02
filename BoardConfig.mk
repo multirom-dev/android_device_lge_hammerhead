@@ -21,8 +21,17 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := krait
 
+# Krait optimizations
+TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
+TARGET_USE_KRAIT_PLD_SET := true
+TARGET_KRAIT_BIONIC_PLDOFFS := 10
+TARGET_KRAIT_BIONIC_PLDTHRESH := 10
+TARGET_KRAIT_BIONIC_BBTHRESH := 64
+TARGET_KRAIT_BIONIC_PLDSIZE := 64
+
 TARGET_NO_BOOTLOADER := true
 
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 
@@ -43,7 +52,12 @@ BOARD_USES_ALSA_AUDIO := true
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+
+ifeq ($(TARGET_PRODUCT),car_hammerhead)
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth_car
+else
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth
+endif
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -72,6 +86,16 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 TARGET_USES_ION := true
 
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+DONT_DEXPREOPT_PREBUILTS := true
+
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 23068672
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 23068672
@@ -81,43 +105,77 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 734003200
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-TARGET_RECOVERY_UI_LIB := librecovery_ui_hammerhead
 TARGET_RECOVERY_FSTAB = device/lge/hammerhead/fstab.hammerhead
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerhead
 
-PDK_PLATFORM_ZIP_PRODUCT_BINARIES := device/lge/hammerhead/vmlinux.bz2
-
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
-BOARD_SEPOLICY_DIRS := \
+BOARD_SEPOLICY_DIRS += \
        device/lge/hammerhead/sepolicy
 
 # The list below is order dependent
-BOARD_SEPOLICY_UNION := \
-       device.te \
+BOARD_SEPOLICY_UNION += \
        app.te \
-       file_contexts
+       bluetooth_loader.te \
+       bridge.te \
+       camera.te \
+       device.te \
+       domain.te \
+       file.te \
+       hostapd.te \
+       irsc_util.te \
+       mediaserver.te \
+       mpdecision.te \
+       netmgrd.te \
+       platform_app.te \
+       qmux.te \
+       radio.te \
+       rild.te \
+       rmt.te \
+       sensors.te \
+       ssr.te \
+       surfaceflinger.te \
+       system_server.te \
+       tee.te \
+       thermald.te \
+       time.te \
+       ueventd.te \
+       vss.te \
+       wpa.te \
+       file_contexts \
+       genfs_contexts \
+       te_macros
 
 HAVE_ADRENO_SOURCE:= false
 
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+
+TARGET_TOUCHBOOST_FREQUENCY:= 1200
+
+USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
+USE_DEVICE_SPECIFIC_CAMERA:= true
 
 -include vendor/lge/hammerhead/BoardConfigVendor.mk
+
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
 
 #TWRP
 DEVICE_RESOLUTION := 1080x1920
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_SDCARD_ON_DATA := true
-TW_NO_USB_STORAGE := true
-TW_INCLUDE_JB_CRYPTO := true
+TW_NO_USB_STORAGE := false
+#TW_INCLUDE_JB_CRYPTO := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
-#TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+#TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 # The real path for this is /sys/devices/mdp.0/qcom,cmdss_fb_primary.160/leds/lcd-backlight/brightness but the comma doesn't compile correctly
 TW_BRIGHTNESS_PATH := "/sys/devices/mdp.0/qcom\x2cmdss_fb_primary.160/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 255

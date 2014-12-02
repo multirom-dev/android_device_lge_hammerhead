@@ -15,14 +15,13 @@
 # limitations under the License.
 
 # start klp-dev
-# 730924 = KRS02B
-# 741161 = KRS15
+# 886418 = KRT16I
 # end klp-dev
 BRANCH=klp-dev
 if test $BRANCH = klp-dev
 then
-  ZIP=hammerhead-ota-866693
-  BUILD=866693
+  ZIP=hammerhead-ota-937116
+  BUILD=kot49h
 fi # klp-dev
 ROOTDEVICE=hammerhead
 DEVICE=hammerhead
@@ -45,21 +44,18 @@ do
     ;;
   lge)
     TO_EXTRACT="\
-            system/app/OmaDmclient.apk \
-            system/app/qcrilmsgtunnel.apk \
-            system/app/SprintHiddenMenu.apk \
+            system/app/qcrilmsgtunnel/qcrilmsgtunnel.apk \
             system/app/UpdateSetting.apk \
-            system/etc/Bluetooth_cal.acdb \
-            system/etc/DxHDCP.cfg \
-            system/etc/General_cal.acdb \
-            system/etc/Global_cal.acdb \
-            system/etc/Handset_cal.acdb \
-            system/etc/Hdmi_cal.acdb \
-            system/etc/Headset_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_General_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_Global_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_Handset_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_Hdmi_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_Headset_cal.acdb \
             system/etc/permissions/serviceitems.xml \
             system/etc/qcril.db \
             system/etc/sensor_def_hh.conf \
-            system/etc/Speaker_cal.acdb \
+            system/etc/acdbdata/MTP/MTP_Speaker_cal.acdb \
             system/framework/serviceitems.jar \
             system/vendor/bin/vss_init \
             system/vendor/firmware/bu24205_LGIT_VER_2_DATA1.bin \
@@ -69,20 +65,12 @@ do
             system/vendor/firmware/bu24205_LGIT_VER_3_DATA1.bin \
             system/vendor/firmware/bu24205_LGIT_VER_3_DATA2.bin \
             system/vendor/firmware/bu24205_LGIT_VER_3_DATA3.bin \
-            system/vendor/firmware/discretix/dxhdcp2.b00 \
-            system/vendor/firmware/discretix/dxhdcp2.b01 \
-            system/vendor/firmware/discretix/dxhdcp2.b02 \
-            system/vendor/firmware/discretix/dxhdcp2.b03 \
-            system/vendor/firmware/discretix/dxhdcp2.mdt \
             system/vendor/firmware/keymaster/keymaster.b00 \
             system/vendor/firmware/keymaster/keymaster.b01 \
             system/vendor/firmware/keymaster/keymaster.b02 \
             system/vendor/firmware/keymaster/keymaster.b03 \
             system/vendor/firmware/keymaster/keymaster.mdt \
             system/vendor/lib/libAKM8963.so \
-            system/vendor/lib/libDxHdcp.so \
-            system/vendor/lib/libvdmengine.so \
-            system/vendor/lib/libvdmfumo.so \
             system/vendor/lib/libvss_common_core.so \
             system/vendor/lib/libvss_common_idl.so \
             system/vendor/lib/libvss_common_iface.so \
@@ -151,6 +139,25 @@ do
             system/lib/libxml.so \
             system/vendor/firmware/a330_pfp.fw \
             system/vendor/firmware/a330_pm4.fw \
+            system/vendor/firmware/adsp.b00 \
+            system/vendor/firmware/adsp.b01 \
+            system/vendor/firmware/adsp.b02 \
+            system/vendor/firmware/adsp.b03 \
+            system/vendor/firmware/adsp.b04 \
+            system/vendor/firmware/adsp.b05 \
+            system/vendor/firmware/adsp.b06 \
+            system/vendor/firmware/adsp.b07 \
+            system/vendor/firmware/adsp.b08 \
+            system/vendor/firmware/adsp.b09 \
+            system/vendor/firmware/adsp.b10 \
+            system/vendor/firmware/adsp.b11 \
+            system/vendor/firmware/adsp.b12 \
+            system/vendor/firmware/adsp.mdt \
+            system/vendor/firmware/cmnlib.b00 \
+            system/vendor/firmware/cmnlib.b01 \
+            system/vendor/firmware/cmnlib.b02 \
+            system/vendor/firmware/cmnlib.b03 \
+            system/vendor/firmware/cmnlib.mdt \
             system/vendor/firmware/venus.b00 \
             system/vendor/firmware/venus.b01 \
             system/vendor/firmware/venus.b02 \
@@ -186,7 +193,8 @@ do
             system/vendor/lib/libizat_core.so \
             system/vendor/lib/libjpegdhw.so \
             system/vendor/lib/libjpegehw.so \
-            system/vendor/lib/libllvm-a3xx.so \
+            system/vendor/lib/libllvm-qcom.so \
+            system/vendor/lib/libbccQTI.so \
             system/vendor/lib/libloc_api_v02.so \
             system/vendor/lib/libloc_ds_api.so \
             system/vendor/lib/libmmcamera2_c2d_module.so \

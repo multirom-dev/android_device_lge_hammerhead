@@ -72,6 +72,25 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/hammerhead/proprietary/libxml.so:system/lib/libxml.so:qcom \
     vendor/qcom/hammerhead/proprietary/a330_pfp.fw:system/vendor/firmware/a330_pfp.fw:qcom \
     vendor/qcom/hammerhead/proprietary/a330_pm4.fw:system/vendor/firmware/a330_pm4.fw:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b00:system/vendor/firmware/adsp.b00:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b01:system/vendor/firmware/adsp.b01:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b02:system/vendor/firmware/adsp.b02:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b03:system/vendor/firmware/adsp.b03:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b04:system/vendor/firmware/adsp.b04:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b05:system/vendor/firmware/adsp.b05:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b06:system/vendor/firmware/adsp.b06:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b07:system/vendor/firmware/adsp.b07:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b08:system/vendor/firmware/adsp.b08:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b09:system/vendor/firmware/adsp.b09:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b10:system/vendor/firmware/adsp.b10:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b11:system/vendor/firmware/adsp.b11:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.b12:system/vendor/firmware/adsp.b12:qcom \
+    vendor/qcom/hammerhead/proprietary/adsp.mdt:system/vendor/firmware/adsp.mdt:qcom \
+    vendor/qcom/hammerhead/proprietary/cmnlib.b00:system/vendor/firmware/cmnlib.b00:qcom \
+    vendor/qcom/hammerhead/proprietary/cmnlib.b01:system/vendor/firmware/cmnlib.b01:qcom \
+    vendor/qcom/hammerhead/proprietary/cmnlib.b02:system/vendor/firmware/cmnlib.b02:qcom \
+    vendor/qcom/hammerhead/proprietary/cmnlib.b03:system/vendor/firmware/cmnlib.b03:qcom \
+    vendor/qcom/hammerhead/proprietary/cmnlib.mdt:system/vendor/firmware/cmnlib.mdt:qcom \
     vendor/qcom/hammerhead/proprietary/venus.b00:system/vendor/firmware/venus.b00:qcom \
     vendor/qcom/hammerhead/proprietary/venus.b01:system/vendor/firmware/venus.b01:qcom \
     vendor/qcom/hammerhead/proprietary/venus.b02:system/vendor/firmware/venus.b02:qcom \
@@ -107,7 +126,8 @@ PRODUCT_COPY_FILES := \
     vendor/qcom/hammerhead/proprietary/libizat_core.so:system/vendor/lib/libizat_core.so:qcom \
     vendor/qcom/hammerhead/proprietary/libjpegdhw.so:system/vendor/lib/libjpegdhw.so:qcom \
     vendor/qcom/hammerhead/proprietary/libjpegehw.so:system/vendor/lib/libjpegehw.so:qcom \
-    vendor/qcom/hammerhead/proprietary/libllvm-a3xx.so:system/vendor/lib/libllvm-a3xx.so:qcom \
+    vendor/qcom/hammerhead/proprietary/libllvm-qcom.so:system/vendor/lib/libllvm-qcom.so:qcom \
+    vendor/qcom/hammerhead/proprietary/libbccQTI.so:system/vendor/lib/libbccQTI.so:qcom \
     vendor/qcom/hammerhead/proprietary/libloc_api_v02.so:system/vendor/lib/libloc_api_v02.so:qcom \
     vendor/qcom/hammerhead/proprietary/libloc_ds_api.so:system/vendor/lib/libloc_ds_api.so:qcom \
     vendor/qcom/hammerhead/proprietary/libmmcamera2_c2d_module.so:system/vendor/lib/libmmcamera2_c2d_module.so:qcom \
