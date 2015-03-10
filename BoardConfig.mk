@@ -183,9 +183,7 @@ TW_NO_SCREEN_TIMEOUT := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 # Enable workaround for slow rom flash
 BOARD_SUPPRESS_SECURE_ERASE := true
-TW_INCLUDE_L_CRYPTO := true
-#TARGET_RECOVERY_DEVICE_MODULES := libc++ 
-#TW_RECOVERY_ADDITIONAL_RELINK_FILES := out/target/product/hammerhead/system/lib/libc++.so
+TW_INCLUDE_CRYPTO := true
 
 #MultiROM config. MultiROM also uses parts of TWRP config
 MR_INPUT_TYPE := type_b
