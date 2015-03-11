@@ -34,5 +34,10 @@ const char *mr_init_devices[] =
     // USB drive is in here
     "/sys/devices/platform/xhci-hcd*",
 
+    // Encryption
+    "/sys/devices/virtual/misc/device-mapper",
+    "/sys/devices/virtual/misc/ion",
+    "/sys/devices/virtual/qseecom/qseecom",
+
     NULL
 };
