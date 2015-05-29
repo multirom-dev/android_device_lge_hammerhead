@@ -9,6 +9,9 @@
 #include <sys/stat.h>
 #include <stdint.h>
 #include <time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <log.h>
 
@@ -86,24 +89,29 @@ static void wait_for_mmc(void)
 static int read_file(const char *path, char *dest, int dest_size)
 {
     int res = 0;
-    FILE *f = fopen(path, "r");
-    if(!f)
+    int fd = open(path, O_RDONLY | O_CLOEXEC);
+    if(fd < 0)
         return res;
 
-    res = fgets(dest, dest_size, f) != NULL;
-    fclose(f);
-    return res;
+    res = read(fd, dest, dest_size);
+    if(res >= dest_size)
+        --res;
+    if(res >= 0)
+        dest[res] = 0;
+    close(fd);
+    return res >= 0;
 }
 
 static int write_file(const char *path, const char *what)
 {
     int res = 0;
-    FILE *f = fopen(path, "w");
-    if(!f)
+
+    int fd = open(path, O_WRONLY | O_CLOEXEC);
+    if(fd < 0)
         return res;
 
-    res = fputs(what, f) >= 0;
-    fclose(f);
+    res = write(fd, what, strlen(what)) >= 0;
+    close(fd);
     return res;
 }
 
@@ -122,10 +130,13 @@ static void set_cpu_governor(void)
     if(!read_file("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors", buff, sizeof(buff)))
         return;
 
-    write_file("/sys/module/msm_thermal/core_control/enabled", "0");
+    // Prevents init from remounting root as ro when the device is encrypted,
+    // (Device or resource busy), because that totally makes all the fucking sense.
+    // Some preempt bug, the kernel open file counter gets stuck..?
+    /*write_file("/sys/module/msm_thermal/core_control/enabled", "0");
     write_file("/sys/devices/system/cpu/cpu1/online", "1");
     write_file("/sys/devices/system/cpu/cpu2/online", "1");
-    write_file("/sys/devices/system/cpu/cpu3/online", "1");
+    write_file("/sys/devices/system/cpu/cpu3/online", "1");*/
 
     for(i = 0; i < sizeof(governors)/sizeof(governors[0]); ++i)
     {
@@ -154,7 +165,7 @@ static void set_cpu_governor(void)
     write_file("/sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq","300000");
     write_file("/sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq","300000");
 
-    write_file("/sys/module/msm_thermal/core_control/enabled", "1");
+    //write_file("/sys/module/msm_thermal/core_control/enabled", "1");
 
     write_file("/sys/module/lpm_resources/enable_low_power/l2", "2");
     write_file("/sys/module/lpm_resources/enable_low_power/pxo", "1");
