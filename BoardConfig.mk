@@ -207,6 +207,7 @@ MR_ENCRYPTION_SETUP_SCRIPT := device/lge/hammerhead/multirom/mr_cp_crypto.sh
 DEVICE_RESOLUTION := 1080x1920
 TARGET_RECOVERY_IS_MULTIROM := true
 MR_NO_KEXEC := true
+MR_DEVICE_SPECIFIC_VERSION := a
 
 include device/common/version-info/MR_REC_VERSION.mk
 
